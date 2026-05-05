@@ -1,0 +1,15 @@
+[project]
+name = "sg-webapp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "crispy-bootstrap5>=2026.3",
+    "django>=6.0.3",
+]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=6.0.3",
+]
