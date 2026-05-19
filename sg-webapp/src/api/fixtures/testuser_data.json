@@ -1,0 +1,501 @@
+[
+  {
+    "model": "api.subscription",
+    "pk": 100,
+    "fields": {
+      "user": 2,
+      "name": "Netflix",
+      "url": "https://www.netflix.com",
+      "cost": "59.00",
+      "billing_cycle": "monthly",
+      "next_billing_date": "2026-06-01",
+      "is_active": true,
+      "created_at": "2026-04-01T10:00:00Z",
+      "updated_at": "2026-05-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.subscription",
+    "pk": 101,
+    "fields": {
+      "user": 2,
+      "name": "Spotify Premium",
+      "url": "https://www.spotify.com",
+      "cost": "19.99",
+      "billing_cycle": "monthly",
+      "next_billing_date": "2026-05-25",
+      "is_active": true,
+      "created_at": "2026-03-15T12:00:00Z",
+      "updated_at": "2026-04-25T12:00:00Z"
+    }
+  },
+  {
+    "model": "api.subscription",
+    "pk": 102,
+    "fields": {
+      "user": 2,
+      "name": "HBO Max",
+      "url": "https://www.hbomax.com",
+      "cost": "29.99",
+      "billing_cycle": "monthly",
+      "next_billing_date": "2026-06-05",
+      "is_active": true,
+      "created_at": "2026-04-10T08:00:00Z",
+      "updated_at": "2026-05-05T08:00:00Z"
+    }
+  },
+  {
+    "model": "api.subscription",
+    "pk": 103,
+    "fields": {
+      "user": 2,
+      "name": "iCloud+ 200GB",
+      "url": "https://www.icloud.com",
+      "cost": "2.99",
+      "billing_cycle": "monthly",
+      "next_billing_date": "2026-06-12",
+      "is_active": true,
+      "created_at": "2026-01-01T09:00:00Z",
+      "updated_at": "2026-05-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 200,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/watch/70143836",
+      "started_at": "2026-05-11T19:30:00Z",
+      "ended_at": "2026-05-11T21:45:00Z",
+      "duration_seconds": 8100,
+      "created_at": "2026-05-11T21:45:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 201,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/browse",
+      "started_at": "2026-05-10T20:00:00Z",
+      "ended_at": "2026-05-10T22:30:00Z",
+      "duration_seconds": 9000,
+      "created_at": "2026-05-10T22:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 202,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M",
+      "started_at": "2026-05-11T08:15:00Z",
+      "ended_at": "2026-05-11T10:30:00Z",
+      "duration_seconds": 8100,
+      "created_at": "2026-05-11T10:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 203,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com/album/1A2GTWGtFfWp7KSQTwWOyo",
+      "started_at": "2026-05-09T14:00:00Z",
+      "ended_at": "2026-05-09T15:20:00Z",
+      "duration_seconds": 4800,
+      "created_at": "2026-05-09T15:20:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 204,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com",
+      "started_at": "2026-05-07T18:00:00Z",
+      "ended_at": "2026-05-07T19:00:00Z",
+      "duration_seconds": 3600,
+      "created_at": "2026-05-07T19:00:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 205,
+    "fields": {
+      "user": 2,
+      "subscription": 102,
+      "url": "https://play.hbomax.com/page/urn:hbo:page:series",
+      "started_at": "2026-05-08T21:00:00Z",
+      "ended_at": "2026-05-08T22:50:00Z",
+      "duration_seconds": 6600,
+      "created_at": "2026-05-08T22:50:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 206,
+    "fields": {
+      "user": 2,
+      "subscription": 102,
+      "url": "https://play.hbomax.com/episode/urn:hbo:episode:GXkRjvQY",
+      "started_at": "2026-05-06T20:30:00Z",
+      "ended_at": "2026-05-06T22:10:00Z",
+      "duration_seconds": 6000,
+      "created_at": "2026-05-06T22:10:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 207,
+    "fields": {
+      "user": 2,
+      "subscription": 103,
+      "url": "https://www.icloud.com/",
+      "started_at": "2026-05-10T09:00:00Z",
+      "ended_at": null,
+      "duration_seconds": null,
+      "created_at": "2026-05-10T09:00:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 208,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/watch/80204890",
+      "started_at": "2026-05-05T19:00:00Z",
+      "ended_at": "2026-05-05T21:15:00Z",
+      "duration_seconds": 8100,
+      "created_at": "2026-05-05T21:15:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 209,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/watch/81002370",
+      "started_at": "2026-05-03T20:00:00Z",
+      "ended_at": "2026-05-03T22:00:00Z",
+      "duration_seconds": 7200,
+      "created_at": "2026-05-03T22:00:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 210,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO",
+      "started_at": "2026-05-02T07:30:00Z",
+      "ended_at": "2026-05-02T09:15:00Z",
+      "duration_seconds": 6300,
+      "created_at": "2026-05-02T09:15:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 211,
+    "fields": {
+      "user": 2,
+      "subscription": 102,
+      "url": "https://play.hbomax.com/page/urn:hbo:page:home",
+      "started_at": "2026-05-01T18:00:00Z",
+      "ended_at": "2026-05-01T19:30:00Z",
+      "duration_seconds": 5400,
+      "created_at": "2026-05-01T19:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 212,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/watch/80189685",
+      "started_at": "2026-04-28T20:00:00Z",
+      "ended_at": "2026-04-28T22:30:00Z",
+      "duration_seconds": 9000,
+      "created_at": "2026-04-28T22:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 213,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com/playlist/37i9dQZF1DX6aTaZa0K6VA",
+      "started_at": "2026-04-25T10:00:00Z",
+      "ended_at": "2026-04-25T11:30:00Z",
+      "duration_seconds": 5400,
+      "created_at": "2026-04-25T11:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 214,
+    "fields": {
+      "user": 2,
+      "subscription": 102,
+      "url": "https://play.hbomax.com/feature/urn:hbo:feature:GYS1wwQ",
+      "started_at": "2026-04-22T21:00:00Z",
+      "ended_at": "2026-04-22T23:15:00Z",
+      "duration_seconds": 8100,
+      "created_at": "2026-04-22T23:15:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 215,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/browse",
+      "started_at": "2026-04-20T19:00:00Z",
+      "ended_at": "2026-04-20T20:30:00Z",
+      "duration_seconds": 5400,
+      "created_at": "2026-04-20T20:30:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 216,
+    "fields": {
+      "user": 2,
+      "subscription": 101,
+      "url": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d",
+      "started_at": "2026-04-18T15:00:00Z",
+      "ended_at": "2026-04-18T16:10:00Z",
+      "duration_seconds": 4200,
+      "created_at": "2026-04-18T16:10:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 217,
+    "fields": {
+      "user": 2,
+      "subscription": 102,
+      "url": "https://play.hbomax.com/page/urn:hbo:page:series",
+      "started_at": "2026-04-15T20:00:00Z",
+      "ended_at": "2026-04-15T22:00:00Z",
+      "duration_seconds": 7200,
+      "created_at": "2026-04-15T22:00:00Z"
+    }
+  },
+  {
+    "model": "api.session",
+    "pk": 218,
+    "fields": {
+      "user": 2,
+      "subscription": 100,
+      "url": "https://www.netflix.com/watch/80025678",
+      "started_at": "2026-04-13T19:30:00Z",
+      "ended_at": "2026-04-13T21:45:00Z",
+      "duration_seconds": 8100,
+      "created_at": "2026-04-13T21:45:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 300,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 101,
+      "event_type": "open",
+      "timestamp": "2026-05-11T19:30:00Z",
+      "created_at": "2026-05-11T19:30:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 301,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 101,
+      "event_type": "close",
+      "timestamp": "2026-05-11T21:45:00Z",
+      "created_at": "2026-05-11T21:45:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 302,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 102,
+      "event_type": "open",
+      "timestamp": "2026-05-10T20:00:00Z",
+      "created_at": "2026-05-10T20:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 303,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 102,
+      "event_type": "close",
+      "timestamp": "2026-05-10T22:30:00Z",
+      "created_at": "2026-05-10T22:30:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 304,
+    "fields": {
+      "user": 2,
+      "url": "https://open.spotify.com",
+      "tab_id": 103,
+      "event_type": "open",
+      "timestamp": "2026-05-11T08:15:00Z",
+      "created_at": "2026-05-11T08:15:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 305,
+    "fields": {
+      "user": 2,
+      "url": "https://open.spotify.com",
+      "tab_id": 103,
+      "event_type": "close",
+      "timestamp": "2026-05-11T10:30:00Z",
+      "created_at": "2026-05-11T10:30:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 306,
+    "fields": {
+      "user": 2,
+      "url": "https://play.hbomax.com",
+      "tab_id": 104,
+      "event_type": "open",
+      "timestamp": "2026-05-08T21:00:00Z",
+      "created_at": "2026-05-08T21:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 307,
+    "fields": {
+      "user": 2,
+      "url": "https://play.hbomax.com",
+      "tab_id": 104,
+      "event_type": "close",
+      "timestamp": "2026-05-08T22:50:00Z",
+      "created_at": "2026-05-08T22:50:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 308,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 105,
+      "event_type": "open",
+      "timestamp": "2026-05-05T19:00:00Z",
+      "created_at": "2026-05-05T19:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 309,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 105,
+      "event_type": "close",
+      "timestamp": "2026-05-05T21:15:00Z",
+      "created_at": "2026-05-05T21:15:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 310,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 106,
+      "event_type": "open",
+      "timestamp": "2026-05-03T20:00:00Z",
+      "created_at": "2026-05-03T20:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 311,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 106,
+      "event_type": "close",
+      "timestamp": "2026-05-03T22:00:00Z",
+      "created_at": "2026-05-03T22:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 312,
+    "fields": {
+      "user": 2,
+      "url": "https://open.spotify.com",
+      "tab_id": 107,
+      "event_type": "open",
+      "timestamp": "2026-05-02T07:30:00Z",
+      "created_at": "2026-05-02T07:30:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 313,
+    "fields": {
+      "user": 2,
+      "url": "https://open.spotify.com",
+      "tab_id": 107,
+      "event_type": "close",
+      "timestamp": "2026-05-02T09:15:00Z",
+      "created_at": "2026-05-02T09:15:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 314,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 108,
+      "event_type": "open",
+      "timestamp": "2026-04-28T20:00:00Z",
+      "created_at": "2026-04-28T20:00:00Z"
+    }
+  },
+  {
+    "model": "api.siteevent",
+    "pk": 315,
+    "fields": {
+      "user": 2,
+      "url": "https://www.netflix.com",
+      "tab_id": 108,
+      "event_type": "close",
+      "timestamp": "2026-04-28T22:30:00Z",
+      "created_at": "2026-04-28T22:30:00Z"
+    }
+  }
+]

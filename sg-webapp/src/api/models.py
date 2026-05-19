@@ -2,6 +2,30 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class SiteEvent(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="site_events")
+    url = models.CharField()
+    tab_id = models.IntegerField()
+    event_type = models.CharField(
+        max_length=10,
+        choices=[
+            ("open", "Open"),
+            ("close", "Close"),
+        ],
+    )
+    timestamp = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-timestamp"]
+        indexes = [
+            models.Index(fields=["user", "timestamp"]),
+        ]
+
+    def __str__(self):
+        return f"{self.event_type} {self.url} (tab={self.tab_id}, {self.user.username})"
+
+
 class Subscription(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="subscriptions"
@@ -28,3 +52,27 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.user.username})"
+
+
+class Session(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="sessions"
+    )
+    subscription = models.ForeignKey(
+        Subscription, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="sessions",
+    )
+    url = models.CharField()
+    started_at = models.DateTimeField()
+    ended_at = models.DateTimeField(null=True, blank=True)
+    duration_seconds = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-started_at"]
+        indexes = [
+            models.Index(fields=["user", "subscription", "ended_at"]),
+        ]
+
+    def __str__(self):
+        return f"{self.subscription} session ({self.user.username})"

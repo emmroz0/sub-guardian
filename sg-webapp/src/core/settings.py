@@ -131,5 +131,23 @@ LOGOUT_REDIRECT_URL = "login"
 
 # Allow CSRF-protected POST requests from the Chrome extension origin.
 CSRF_TRUSTED_ORIGINS = [
+    "chrome-extension://fpjlnphkinpahdmajidhfkjomefnekln",
     "chrome-extension://mncoakidggoklokljdoklnnembcjbdkj",
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "api": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

@@ -1,18 +1,231 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Dashboard{% endblock %}
 
+{% block extra_css %}
+<style>
+  .stat-card { border-left: 4px solid var(--bs-primary); }
+  .stat-card:nth-child(2) { border-left-color: var(--bs-success); }
+  .stat-card:nth-child(3) { border-left-color: var(--bs-warning); }
+  .stat-card:nth-child(4) { border-left-color: var(--bs-info); }
+  .stat-value { font-size: 2rem; font-weight: 700; }
+  .sub-card:hover { box-shadow: 0 .25rem .75rem rgba(0,0,0,.1); transition: box-shadow .2s; }
+  .chart-container { position: relative; height: 250px; width: 100%; }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-    <h1>Welcome to the Dashboard</h1>
-    {% if user.is_authenticated %}
-        <p>logged as: {{ user.username }}</p>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Wyloguj się</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj się</a>
-    {% endif %}
+<div class="container mt-4 mb-5">
+
+{% if user.is_authenticated %}
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Dashboard</h2>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-secondary btn-sm">Wyloguj się</button>
+    </form>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card stat-card h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Subskrypcje</div>
+          <div class="stat-value">{{ active_subscriptions_count }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Koszt / mc</div>
+          <div class="stat-value">{{ total_monthly_cost }} zł</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Czas (30d)</div>
+          <div class="stat-value">{{ total_tracked_hours }} h</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Odwiedziny</div>
+          <div class="stat-value">{{ visit_count }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    {% for sub in subscriptions %}
+    <div class="col-md-4 col-lg-3">
+      <div class="card sub-card h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-1">{{ sub.name }}</h5>
+          <div class="text-muted small mb-2">{{ sub.url }}</div>
+          <div class="d-flex justify-content-between align-items-baseline">
+            <span class="fs-4 fw-semibold">{{ sub.cost }} zł</span>
+            <span class="badge bg-light text-dark">{{ sub.billing_cycle }}</span>
+          </div>
+          {% if sub.next_billing_date %}
+          <div class="mt-2 small text-muted">
+            Następna płatność: {{ sub.next_billing_date|date:"d.m.Y" }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="alert alert-info mb-0">Brak aktywnych subskrypcji. Dodaj je w panelu administracyjnym.</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if time_per_subscription %}
+  <div class="row g-3 mb-4">
+    <div class="col-md-7">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Czas według serwisu (30 dni)</h5>
+          <div class="chart-container">
+            <canvas id="timeChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Aktywność dzienna (14 dni)</h5>
+          <div class="chart-container">
+            <canvas id="dailyChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if recent_sessions %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ostatnie sesje</h5>
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Serwis</th>
+              <th>Rozpoczęcie</th>
+              <th>Czas trwania</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for session in recent_sessions %}
+            <tr>
+              <td>{{ session.subscription.name|default:"—" }}</td>
+              <td>{{ session.started_at|date:"d.m.Y H:i" }}</td>
+              <td>
+                {% if session.ended_at %}
+                  {% widthratio session.duration_seconds|default:0 60 1 %} min
+                {% else %}
+                  <span class="text-success">Aktywna</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+{% else %}
+
+  <div class="text-center py-5">
+    <h1 class="display-5 mb-3">Sub Guardian</h1>
+    <p class="lead text-muted mb-4">Śledź swoje subskrypcje i analizuj czas spędzany w serwisach.</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4">Zaloguj się</a>
+      <a href="{% url 'sign_up' %}" class="btn btn-outline-primary btn-lg px-4">Zarejestruj się</a>
+    </div>
+  </div>
+
+{% endif %}
+
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{% if user.is_authenticated and time_per_subscription %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var timeLabels = [{% for item in time_per_subscription %}"{{ item.subscription__name|escapejs }}",{% endfor %}];
+  var timeSeconds = [{% for item in time_per_subscription %}{{ item.total_seconds|default:0 }},{% endfor %}];
+  var timeMinutes = timeSeconds.map(function(s) { return Math.round(s / 60); });
+
+  var dailyLabels = [{% for item in daily_usage %}"{{ item.date|date:"d.m"|escapejs }}",{% endfor %}];
+  var dailyMinutes = [{% for item in daily_usage %}{{ item.total_seconds|default:0|floatformat:0 }},{% endfor %}];
+
+  new Chart(document.getElementById('timeChart'), {
+    type: 'bar',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Minuty',
+        data: timeMinutes,
+        backgroundColor: 'rgba(13, 110, 253, 0.7)',
+        borderColor: 'rgba(13, 110, 253, 1)',
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: function(v) { return v + ' min'; } } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('dailyChart'), {
+    type: 'line',
+    data: {
+      labels: dailyLabels,
+      datasets: [{
+        label: 'Minuty',
+        data: dailyMinutes,
+        borderColor: 'rgba(25, 135, 84, 0.9)',
+        backgroundColor: 'rgba(25, 135, 84, 0.15)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: 'rgba(25, 135, 84, 1)',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { callback: function(v) { return v + ' min'; } } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+})();
+</script>
+{% endif %}
 {% endblock %}
